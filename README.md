@@ -1,6 +1,6 @@
 <h2 align="center">
   
-     ──「  ɢᴜᴅᴅᴀ  ꭙ ᴍᴜꜱɪᴄ 」──
+     ──「Amita x music」──
 </h2>
 
 <p align="center"><a href="https://t.me/LunaOwnerTG"><img src="https://files.catbox.moe/78wok7.jpg"></a></p>
@@ -12,7 +12,7 @@
   </p>
 
 <p align="center">
-  <a href="https://heroku.com/deploy?template=https://github.com/YourUsername/AmitaMusic">
+  <a href="https://heroku.com/deploy?template=https://github.com/vipchor3215/CloneMusic">
     <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=0,2,6,12,20&height=55&section=header&text=Deploy%20to%20Heroku&fontSize=22&fontColor=ffffff&animation=twinkling" />
   </a>
 </p>
