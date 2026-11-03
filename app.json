@@ -23,7 +23,7 @@
       "value": "",
       "required": true
     },
-    "BABIES_API_KEY": {
+    "YOUTUBE_API_KEY": {
       "description": "API key of https://babiesiq.tech (song/video download API). Deploy karne wala yahan apni key daale.",
       "value": "",
       "required": true
