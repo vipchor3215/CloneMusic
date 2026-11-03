@@ -32,12 +32,10 @@ ASSUSERNAME = getenv("ASSUSERNAME", "")
 MONGO_DB_URI = getenv("MONGO_DB_URI")
 
 # --- URLs & Keys ---
-YTPROXY_URL = getenv("YTPROXY_URL", 'https://tgapi.xbitcode.com') 
-YT_API_KEY = getenv("YT_API_KEY" , "") 
+#apna api key env me dalo 
+
 COOKIES_URL = getenv("COOKIES_URL", "")
 
-API_URL = "https://api-dl-1.gleeze.com/yt"
-VIDEO_API_URL = "https://api-dl-1.gleeze.com/yt"
 API_KEY = getenv("API_KEY", "")
 
 # --- Limits ---
