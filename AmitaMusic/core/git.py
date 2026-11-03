@@ -35,6 +35,13 @@ def install_req(cmd: str) -> Tuple[str, str, int, int]:
 
 
 def git():
+    try:
+        _git()
+    except Exception as e:
+        LOGGER(__name__).warning(f"Git update skipped: {type(e).__name__}: {e}")
+
+
+def _git():
     REPO_LINK = config.UPSTREAM_REPO
     if config.GIT_TOKEN:
         GIT_USERNAME = REPO_LINK.split("com/")[1].split("/")[0]
