@@ -11,12 +11,13 @@ from AmitaMusic.utils.database import is_on_off
 from AmitaMusic.utils.formatters import time_to_seconds
 import random
 import aiohttp
-from config import LOGGER_ID, API_KEY
+from config import LOGGER_ID
 from AmitaMusic import app
 from urllib.parse import urlparse
 
 # config.py untouched: API base URL lives here (can still be overridden via BASE_URL env var)
 BASE_URL = os.getenv("BASE_URL", "https://babiesiq.tech").rstrip("/")
+API_KEY = os.getenv("YOUTUBE_API_KEY", "")  # set by deployer (app.json / .env)
 
 STREAM_MODE = False  # True = download local stream | False = direct stream from API
 
@@ -32,7 +33,8 @@ def safe_yt_shell(url: str) -> bool:
             "m.youtube.com",
             "youtu.be",
         )
-        if not any(domain in p.netloc for domain in allowed):
+        host = (p.hostname or "").lower()
+        if not any(host == d or host.endswith("." + d) for d in allowed):
             return False
         if any(x in url for x in [";", "|", "$", "`", "\n", "\r"]):
             return False
@@ -52,8 +54,13 @@ def cookie_txt_file():
     return cookie_file
 
 
+def _vid_id(link: str) -> str:
+    m = re.search(r"(?:v=|youtu\.be/|shorts/|embed/)([A-Za-z0-9_-]{6,})", link)
+    return m.group(1) if m else link.split("v=")[-1].split("&")[0]
+
+
 async def _download_media(link: str, kind: str, exts: list[str], wait: int = 60):
-    vid = link.split("v=")[-1].split("&")[0]
+    vid = _vid_id(link)
     os.makedirs("downloads", exist_ok=True)
     try:
         if not STREAM_MODE:
@@ -484,7 +491,7 @@ class YouTubeAPI:
 
         if songvideo or songaudio:
             await download_song(link)
-            vid_id = link.split("v=")[-1].split("&")[0] if "v=" in link else link.split("/")[-1]
+            vid_id = _vid_id(link)
             fpath = f"downloads/{vid_id}.mp3"
             return fpath
         elif video:
