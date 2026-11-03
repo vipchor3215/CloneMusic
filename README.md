@@ -12,17 +12,21 @@
    </strong></a>
   </p>
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/YourUsername/AmitaMusic)
+<p align="center">
+  <a href="https://heroku.com/deploy?template=https://github.com/YourUsername/AmitaMusic">
+    <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=0,2,6,12,20&height=55&section=header&text=Deploy%20to%20Heroku&fontSize=22&fontColor=ffffff&animation=twinkling" />
+  </a>
+</p>
 
 <p align="center">
   <a href="https://t.me/Hr_iqq">
-    <img src="https://img.shields.io/badge/Support%20Channel-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />
+    <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=0,2,6,12,20&height=50&section=header&text=Support%20Channel&fontSize=18&fontColor=ffffff&animation=twinkling" />
   </a>
   <a href="https://t.me/codex_jack">
-    <img src="https://img.shields.io/badge/Support%20Chat-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />
+    <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=0,2,6,12,20&height=50&section=header&text=Support%20Chat&fontSize=18&fontColor=ffffff&animation=twinkling" />
   </a>
   <a href="https://t.me/LunaOwnerTG">
-    <img src="https://img.shields.io/badge/Coder-181717?style=for-the-badge&logo=telegram&logoColor=white" />
+    <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=0,2,6,12,20&height=50&section=header&text=Coder&fontSize=18&fontColor=ffffff&animation=twinkling" />
   </a>
 </p>
 
