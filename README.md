@@ -1,6 +1,6 @@
 <h2 align="center">
   
-     ──「  Amita x Music  」──
+     ──「  ɢᴜᴅᴅᴀ  ꭙ ᴍᴜꜱɪᴄ 」──
 </h2>
 
 <p align="center"><a href="https://t.me/YourOwner"><img src="https://files.catbox.moe/78wok7.jpg"></a></p>
@@ -13,6 +13,18 @@
   </p>
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/YourUsername/AmitaMusic)
+
+<p align="center">
+  <a href="https://t.me/Hr_iqq">
+    <img src="https://img.shields.io/badge/Support%20Channel-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />
+  </a>
+  <a href="https://t.me/codex_jack">
+    <img src="https://img.shields.io/badge/Support%20Chat-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />
+  </a>
+  <a href="https://t.me/LunaOwnerTG">
+    <img src="https://img.shields.io/badge/Coder-181717?style=for-the-badge&logo=telegram&logoColor=white" />
+  </a>
+</p>
 
 ### 📖 Koi coding nahi aati? Koi baat nahi!
 
