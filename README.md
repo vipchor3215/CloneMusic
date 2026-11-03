@@ -1,6 +1,6 @@
 <h2 align="center">
   
-     ──「  ɢᴜᴅᴅᴀ  ꭙ ᴍᴜꜱɪᴄ 」──
+     ──「  Amita x Music  」──
 </h2>
 
 <p align="center"><a href="https://t.me/YourOwner"><img src="https://files.catbox.moe/78wok7.jpg"></a></p>
