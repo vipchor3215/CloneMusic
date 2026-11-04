@@ -52,7 +52,7 @@ async def init():
     await PRO.decorators()
     await restart_bots()
     LOGGER("AmitaMusic").info(
-        "╔═════ஜ۩۞۩ஜ════╗\n  ☠︎︎𝗠𝗔𝗗𝗘 𝗕𝗬 𝗞𝗔𝗡𝗛𝗔 𝐁𝐎𝐓𝐒☠︎︎\n╚═════ஜ۩۞۩ஜ════╝"
+        "╔═════ஜ۩۞۩ஜ════╗\n  ☠︎︎𝐌𝐀𝐃𝐄 𝐁𝐘 𝐋𝐔𝐍𝐀 𝐁𝐎𝐓𝐒☠︎︎\n╚═════ஜ۩۞۩ஜ════╝"
     )
     await idle()
     await app.stop()
@@ -61,4 +61,4 @@ async def init():
 
 
 if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(init())
+    asyncio.run(init())
