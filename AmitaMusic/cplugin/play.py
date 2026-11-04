@@ -248,25 +248,9 @@ async def play_commnd(
                     details["duration_min"],
                 )
             elif "youtube.com/@" in url:
-                try:
-                    video_urls = fetch_channel_videos(url)
-                    for video_url in video_urls:
-                        details, track_id = await YouTube.track(video_url)
-                        streamtype = "playlist"
-                        img = details["thumb"]
-                        cap = _["play_10"].format(
-                            details["title"], details["duration_min"]
-                        )
-                        await queue_video_for_playback(
-                            video_url, details, track_id, streamtype, img, cap
-                        )
-
-                    await mystic.edit_text(
-                        "All videos from the channel have been added to the queue."
-                    )
-                except Exception as e:
-                    print(e)
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                return await mystic.edit_text(
+                    "Channel links are not supported. Please send a video or playlist link."
+                )
 
             else:
                 try:
