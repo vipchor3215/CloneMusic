@@ -17,7 +17,7 @@ from urllib.parse import urlparse
 
 # config.py untouched: API base URL lives here (can still be overridden via BASE_URL env var)
 BASE_URL = os.getenv("BASE_URL", "https://babiesiq.tech").rstrip("/")
-API_KEY = os.getenv("YOUTUBE_API_KEY", "")  # set by deployer (app.json / .env)
+API_KEY = os.getenv("YOUTUBE_API_KEY") or os.getenv("API_KEY", "")  # either var name works
 
 STREAM_MODE = False  # True = download local stream | False = direct stream from API
 
