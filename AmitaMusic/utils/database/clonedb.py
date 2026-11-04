@@ -6,6 +6,8 @@
 from AmitaMusic.core.mongo import mongodb, pymongodb
 from typing import Dict, List, Union
 
+import config
+
 cloneownerdb = mongodb.cloneownerdb
 clonebotdb = pymongodb.clonebotdb
 clonebotnamedb = mongodb.clonebotnamedb
@@ -66,11 +68,17 @@ def check_bot_premium(bot_id):
 
 async def get_cloned_support_chat(bot_id: int) -> str:
     bot_details = clonebotdb.find_one({"bot_id": bot_id})
-    return bot_details.get("support", "No support chat set.")
+    value = (bot_details or {}).get("support")
+    if not value or value in ("YourSupportChat", "No support chat set."):
+        return config.tg_name(config.SUPPORT_CHAT)
+    return value
 
 async def get_cloned_support_channel(bot_id: int) -> str:
     bot_details = clonebotdb.find_one({"bot_id": bot_id})
-    return bot_details.get("channel", "No channel set.")
+    value = (bot_details or {}).get("channel")
+    if not value or value in ("YourChannel", "No channel set."):
+        return config.tg_name(config.SUPPORT_CHANNEL)
+    return value
 
 
 async def has_user_cloned_any_bot(user_id: int) -> bool:
