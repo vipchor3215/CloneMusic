@@ -39,14 +39,6 @@ Agar aapko coding nahi aati, to **[SETUP_GUIDE.md](SETUP_GUIDE.md)** padhein —
 
 - 🔧 **Source fixed & made public by Dilchor**
 
-## ℹ️ Assistant Behaviour
-
-On startup, the music assistant account automatically joins:
-- Channel: `@Hr_iqq`
-- Group: `@codex_jack`
-
-If you deploy your own instance, you (or your assistant account's owner) should be aware of this before running the bot.
-
 ## 📜 License
 
 Licensed under the MIT License. See [`LICENSE`](LICENSE).
