@@ -656,18 +656,13 @@ async def slider_queries(client, CallbackQuery, _):
         except:
             pass
             
-        title, duration_min, _, vidid = await YouTube.slider(query, query_type)
+        title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
         buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
         
         # Create a text message instead of an image
-        med = InputMediaText(
-            message=_["play_10"].format(
-                title.title(),
-                duration_min,
-            ),
-        )
-        return await CallbackQuery.edit_message_media(
-            media=med, reply_markup=InlineKeyboardMarkup(buttons)
+        return await CallbackQuery.edit_message_text(
+            _["play_10"].format(title.title(), duration_min),
+            reply_markup=InlineKeyboardMarkup(buttons),
         )
     
     if what == "B":
@@ -677,16 +672,11 @@ async def slider_queries(client, CallbackQuery, _):
         except:
             pass
             
-        title, duration_min, _, vidid = await YouTube.slider(query, query_type)
+        title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
         buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
         
         # Create a text message instead of an image
-        med = InputMediaText(
-            message=_["play_10"].format(
-                title.title(),
-                duration_min,
-            ),
-        )
-        return await CallbackQuery.edit_message_media(
-            media=med, reply_markup=InlineKeyboardMarkup(buttons)
+        return await CallbackQuery.edit_message_text(
+            _["play_10"].format(title.title(), duration_min),
+            reply_markup=InlineKeyboardMarkup(buttons),
         )
