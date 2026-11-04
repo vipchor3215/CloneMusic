@@ -64,6 +64,7 @@ GIT_TOKEN = getenv("GIT_TOKEN", "")
 SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Hr_iqq")
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/codex_jack")
 
+
 # --- Assistant ---
 AUTO_LEAVING_ASSISTANT = getenv("AUTO_LEAVING_ASSISTANT", "False")
 AUTO_LEAVE_ASSISTANT_TIME = int(getenv("ASSISTANT_LEAVE_TIME", "9000"))
@@ -130,6 +131,14 @@ YOUTUBE_IMG_URL = "https://i.ibb.co/xShkBVBK/youtube.jpg"
 SPOTIFY_ARTIST_IMG_URL = "https://i.ibb.co/XZfMS8Db/spotify.jpg"
 SPOTIFY_ALBUM_IMG_URL = "https://i.ibb.co/XZfMS8Db/spotify.jpg"
 SPOTIFY_PLAYLIST_IMG_URL = "https://i.ibb.co/XZfMS8Db/spotify.jpg"
+
+def tg_name(link: str) -> str:
+    """https://t.me/abc -> abc  (also works for @abc and invite links like +xyz)."""
+    link = (link or "").strip()
+    if "t.me/" in link:
+        link = link.split("t.me/", 1)[1]
+    return link.lstrip("@").strip("/")
+
 
 def time_to_seconds(time):
     string_time = str(time)
