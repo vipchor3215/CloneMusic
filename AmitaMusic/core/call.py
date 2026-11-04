@@ -38,7 +38,7 @@ from AmitaMusic.utils.database import (
 )
 from AmitaMusic.utils.exceptions import AssistantErr
 from AmitaMusic.utils.formatters import check_duration, seconds_to_min, speed_converter
-from AmitaMusic.utils.inline.play import stream_markup
+from AmitaMusic.utils.inline.play import stream_markup, telegram_markup
 from AmitaMusic.utils.stream.autoclear import auto_clean
 from strings import get_string
 from AmitaMusic.utils.thumbnails import get_thumb
@@ -338,7 +338,7 @@ class Call(PyTgCalls):
                         text=_["call_6"],
                     )
                 button = telegram_markup(_, chat_id)
-                run = await app.send_text(
+                run = await app.send_message(
                     chat_id=original_chat_id,
                     text=_["stream_1"].format(
                         f"https://t.me/{app.username}?start=info_{videoid}",
@@ -392,7 +392,7 @@ class Call(PyTgCalls):
                 img = await get_thumb(videoid)
                 button = stream_markup(_, chat_id)
                 await mystic.delete()
-                run = await app.send_text(
+                run = await app.send_message(
                     chat_id=original_chat_id,
                     text=_["stream_1"].format(
                         f"https://t.me/{app.username}?start=info_{videoid}",
