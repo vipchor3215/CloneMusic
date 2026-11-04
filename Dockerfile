@@ -19,4 +19,10 @@ WORKDIR /app/
 RUN python -m pip install --no-cache-dir --upgrade pip
 RUN pip3 install --no-cache-dir --upgrade -r requirements.txt
 
+# Other packages (pykeyboard, SafoneAPI...) pull in plain "pyrogram", which overwrites the
+# fork. Remove all pyrogram variants and reinstall the fork last so ButtonStyle exists.
+RUN pip3 uninstall -y pyrogram kurigram pyrofork pyrotgfork || true
+RUN pip3 install --no-cache-dir --no-deps "pyrotgfork>=2.2.24"
+RUN python -c "from pyrogram.enums import ButtonStyle; print('ButtonStyle OK')"
+
 CMD bash start
