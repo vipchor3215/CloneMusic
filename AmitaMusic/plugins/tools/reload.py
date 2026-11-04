@@ -123,7 +123,7 @@ async def help(client: Client, message: Message):
              [
                  [
                       InlineKeyboardButton(
-                         "• DEV •", url=f"https://t.me/YourOwner", style=ButtonStyle.PRIMARY)
+                         "• DEV •", url=f"https://t.me/OWNER_DILCHOR", style=ButtonStyle.PRIMARY)
                  ]
             ]
          ),
