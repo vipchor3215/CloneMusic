@@ -220,6 +220,16 @@ async def restart_bots():
                 clonebotdb.delete_one({"token": bot_token})
                 continue
 
+            # keep the "What can this bot do?" text of old clones in sync with config
+            try:
+                requests.post(
+                    f"https://api.telegram.org/bot{bot_token}/setMyDescription",
+                    data={"description": C_BOT_DESC},
+                    timeout=15,
+                )
+            except Exception as e:
+                logging.error(f"Could not update description: {type(e).__name__}")
+
             ai = Client(
                 f"{bot_token}",
                 API_ID,
@@ -364,6 +374,15 @@ async def sync_clone_links(client, message):
                 }
             },
         )
+        for _bot in list(clonebotdb.find()):
+            try:
+                requests.post(
+                    f"https://api.telegram.org/bot{_bot['token']}/setMyDescription",
+                    data={"description": C_BOT_DESC},
+                    timeout=15,
+                )
+            except Exception:
+                pass
         await message.reply_text(
             f"✅ Updated {result.modified_count} cloned bot(s).\n\n"
             f"Channel: {config.SUPPORT_CHANNEL}\nChat: {config.SUPPORT_CHAT}"
