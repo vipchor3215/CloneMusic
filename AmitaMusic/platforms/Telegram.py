@@ -48,13 +48,6 @@ class TeleAPI:
             file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ"
         return file_name
 
-    async def get_duration(self, file):
-        try:
-            dur = seconds_to_min(file.duration)
-        except:
-            dur = "Unknown"
-        return dur
-
     async def get_duration(self, filex, file_path):
         try:
             dur = seconds_to_min(filex.duration)
