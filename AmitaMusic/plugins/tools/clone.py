@@ -24,6 +24,7 @@ from AmitaMusic.utils.database import get_assistant, clonebotdb
 from AmitaMusic.utils.database.clonedb import has_user_cloned_any_bot
 from config import LOGGER_ID, CLONE_LOGGER
 import requests
+import config
 from AmitaMusic.utils.decorators.language import language
 import pyrogram.errors
 
@@ -33,7 +34,7 @@ from config import SUPPORT_CHAT, OWNER_ID
 from datetime import datetime
 CLONES = set()
 
-C_BOT_DESC = "Wᴀɴᴛ ᴀ ʙᴏᴛ ʟɪᴋᴇ ᴛʜɪs? Cʟᴏɴᴇ ɪᴛ ɴᴏᴡ! ✅\n\nVɪsɪᴛ: @Amita_music_cloner_bot ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ!\n\n - Uᴘᴅᴀᴛᴇ: @YourChannel\n - Sᴜᴘᴘᴏʀᴛ: @YourSupportChat"
+C_BOT_DESC = "Wᴀɴᴛ ᴀ ʙᴏᴛ ʟɪᴋᴇ ᴛʜɪs? Cʟᴏɴᴇ ɪᴛ ɴᴏᴡ! ✅\n\nVɪsɪᴛ: @Amita_music_cloner_bot ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ!\n\n - Uᴘᴅᴀᴛᴇ: @" + config.tg_name(config.SUPPORT_CHANNEL) + "\n - Sᴜᴘᴘᴏʀᴛ: @" + config.tg_name(config.SUPPORT_CHAT) + ""
 
 C_BOT_COMMANDS = [
                 {"command": "/start", "description": "sᴛᴀʀᴛs ᴛʜᴇ ᴍᴜsɪᴄ ʙᴏᴛ"},
@@ -107,8 +108,8 @@ async def clone_txt(client, message, _):
                 "name": bot.first_name,
                 "token": bot_token,
                 "username": bot.username,
-                "channel": "YourChannel",
-                "support": "YourSupportChat",
+                "channel": config.tg_name(config.SUPPORT_CHANNEL),
+                "support": config.tg_name(config.SUPPORT_CHAT),
                 "premium" : True,
                 "Date" : False,
             }
@@ -347,3 +348,25 @@ async def list_cloned_bots(client, message, _):
     except Exception as e:
         logging.exception(e)
         await message.reply_text("An error occurred while listing cloned bots.")
+
+
+@app.on_message(filters.command("syncclonelinks") & filters.user(OWNER_ID))
+async def sync_clone_links(client, message):
+    """Owner only: overwrite channel/support link of ALL cloned bots in the DB
+    with SUPPORT_CHANNEL / SUPPORT_CHAT from config."""
+    try:
+        result = clonebotdb.update_many(
+            {},
+            {
+                "$set": {
+                    "channel": config.tg_name(config.SUPPORT_CHANNEL),
+                    "support": config.tg_name(config.SUPPORT_CHAT),
+                }
+            },
+        )
+        await message.reply_text(
+            f"✅ Updated {result.modified_count} cloned bot(s).\n\n"
+            f"Channel: {config.SUPPORT_CHANNEL}\nChat: {config.SUPPORT_CHAT}"
+        )
+    except Exception as e:
+        await message.reply_text(f"❌ Failed: {type(e).__name__}: {e}")
