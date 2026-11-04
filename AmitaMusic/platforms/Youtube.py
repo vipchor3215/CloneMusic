@@ -8,7 +8,7 @@ from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
 from py_yt import VideosSearch
 from AmitaMusic.utils.database import is_on_off
-from AmitaMusic.utils.formatters import time_to_seconds
+from AmitaMusic.utils.formatters import seconds_to_min, time_to_seconds
 import random
 import aiohttp
 from config import LOGGER_ID
@@ -16,7 +16,7 @@ from AmitaMusic import app
 from urllib.parse import urlparse
 
 # config.py untouched: API base URL lives here (can still be overridden via BASE_URL env var)
-BASE_URL = os.getenv("BASE_URL", "https://babiesiq.tech").rstrip("/")
+BASE_URL = os.getenv("BASE_URL", "https://api.babiesiq.tech").rstrip("/")
 API_KEY = os.getenv("YOUTUBE_API_KEY") or os.getenv("API_KEY", "")  # either var name works
 
 STREAM_MODE = False  # True = download local stream | False = direct stream from API
@@ -68,17 +68,20 @@ async def _download_media(link: str, kind: str, exts: list[str], wait: int = 60)
                 p = f"downloads/{vid}.{e}"
                 if os.path.exists(p):
                     return p
-        async with aiohttp.ClientSession() as s:
+        async with aiohttp.ClientSession(headers={"X-API-Key": API_KEY}) as s:
             url = (
                 f"{BASE_URL}/api/{kind}?query={vid}&api={API_KEY}"
                 if STREAM_MODE
                 else f"{BASE_URL}/api/{kind}?query={vid}&download=true&api={API_KEY}"
             )
+            if not API_KEY:
+                raise Exception("API key missing (set YOUTUBE_API_KEY or API_KEY)")
             async with s.get(url) as r:
-                j = await r.json()
+                status = r.status
+                j = await r.json(content_type=None)
             u = j.get("stream")
             if not u:
-                raise Exception("no stream")
+                raise Exception(f"no stream (HTTP {status}): {str(j)[:150]}")
             if j.get("type") == "live":
                 return u
             for _ in range(wait):
@@ -105,10 +108,11 @@ async def _download_media(link: str, kind: str, exts: list[str], wait: int = 60)
                 raise Exception("dl fail")
             return p
     except Exception as e:
+        print(f"{kind.upper()} download error: {type(e).__name__}: {str(e)[:300]}")
         try:
             await app.send_message(
                 LOGGER_ID,
-                f"❌ {kind.upper()} ERR\n🔗 `{link}`\n⚠️ `{str(e)[:100]}`"
+                f"❌ {kind.upper()} ERR\n🔗 `{link}`\n⚠️ `{type(e).__name__}: {str(e)[:250]}`"
             )
         except Exception:
             pass
@@ -341,14 +345,36 @@ class YouTubeAPI:
         if "&" in link:
             link = link.split("&")[0]
 
-        results = VideosSearch(link, limit=1)
+        title = None
+        try:
+            results = VideosSearch(link, limit=1)
+            for result in (await results.next())["result"]:
+                title = result["title"]
+                duration_min = result["duration"]
+                vidid = result["id"]
+                yturl = result["link"]
+                thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+        except Exception as e:
+            print(f"py_yt search failed, falling back to yt-dlp: {type(e).__name__}: {e}")
 
-        for result in (await results.next())["result"]:
-            title = result["title"]
-            duration_min = result["duration"]
-            vidid = result["id"]
-            yturl = result["link"]
-            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+        if title is None:
+            # Fallback: yt-dlp (no cookies needed for search / metadata)
+            def _fallback():
+                opts = {"quiet": True, "no_warnings": True, "skip_download": True}
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    if link.startswith("http"):
+                        info = ydl.extract_info(link, download=False)
+                    else:
+                        info = ydl.extract_info(f"ytsearch1:{link}", download=False)["entries"][0]
+                return info
+
+            info = await asyncio.get_running_loop().run_in_executor(None, _fallback)
+            title = info["title"]
+            vidid = info["id"]
+            yturl = f"https://www.youtube.com/watch?v={vidid}"
+            dur = info.get("duration")
+            duration_min = seconds_to_min(int(dur)) if dur else None
+            thumbnail = info.get("thumbnail") or f"https://i.ytimg.com/vi/{vidid}/hqdefault.jpg"
 
         clean_title = title.strip()
         if len(clean_title) > 14:
