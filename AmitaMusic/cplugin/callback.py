@@ -158,7 +158,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         if pages == 0:
             buttons = panel_markup_3(_, videoid, chat_id)
         if pages == 4:
-            buttons = panel_markup_
+            buttons = panel_markup_2(_, videoid, chat_id)
         if pages == 3:
             buttons = panel_markup_4(
                 _,
@@ -176,7 +176,7 @@ async def del_back_playlist(client, CallbackQuery, _):
 
 
 @Client.on_callback_query(filters.regex("unban_assistant"))
-async def unban_assistant(_, callback: CallbackQuery):
+async def unban_assistant(client, callback: CallbackQuery):
     chat_id = callback.message.chat.id
     userbot = await get_assistant(chat_id)
 
