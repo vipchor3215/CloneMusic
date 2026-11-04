@@ -236,7 +236,7 @@ def stream_markup2(_, chat_id):
                 text="ᴏᴡɴᴇʀ", url=f"https://t.me/YourOwner", style=ButtonStyle.PRIMARY
             ),
             InlineKeyboardButton(
-                text="ᴄʜᴀᴛ", url=f"https://t.me/YourSupportChat", style=ButtonStyle.PRIMARY
+                text="ᴄʜᴀᴛ", url=config.SUPPORT_CHAT, style=ButtonStyle.PRIMARY
             ),
         ],
 
