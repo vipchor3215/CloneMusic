@@ -8,6 +8,8 @@ from typing import List
 
 import yaml
 
+import config
+
 languages = {}
 languages_present = {}
 
@@ -37,3 +39,36 @@ for filename in os.listdir(r"./strings/langs/"):
     except:
         print("There is some issue with the language file inside bot.")
         exit()
+
+
+# Show the links set in config (SUPPORT_CHANNEL / SUPPORT_CHAT / OWNER_USERNAME)
+# instead of the "@YourChannel" style placeholders written in the language files.
+def _wanted():
+    w = {
+        "@YourChannel": "@" + config.tg_name(config.SUPPORT_CHANNEL),
+        "@YourSupportChat": "@" + config.tg_name(config.SUPPORT_CHAT),
+    }
+    if config.OWNER_USERNAME:
+        w["@YourOwner"] = "@" + config.OWNER_USERNAME.lstrip("@")
+    return w
+
+
+_applied = {}
+
+
+def refresh_links():
+    """Replace placeholders (first call) or the previous values (later calls)."""
+    global _applied
+    wanted = _wanted()
+    for key, new in wanted.items():
+        old = _applied.get(key, key)
+        if old == new:
+            continue
+        for _lang in languages.values():
+            for _k, _v in list(_lang.items()):
+                if isinstance(_v, str) and old in _v:
+                    _lang[_k] = _v.replace(old, new)
+    _applied = wanted
+
+
+refresh_links()
