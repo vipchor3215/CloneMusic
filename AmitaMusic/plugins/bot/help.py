@@ -5,7 +5,7 @@
 # ─────────────────────────────────────────────────────────────
 from pyrogram.enums import ButtonStyle
 from typing import Union
-from pyrogram import filters, types
+from pyrogram import enums, filters, types
 from pyrogram.types import InlineKeyboardMarkup, Message, InlineKeyboardButton
 from AmitaMusic import app
 from AmitaMusic.utils import help_pannel
@@ -101,6 +101,8 @@ async def helper_cb(client, CallbackQuery, _):
 async def on_back_button(client, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     cb = callback_data.split(None, 1)[1]
+    language = await get_lang(CallbackQuery.message.chat.id)
+    _ = get_string(language)
     keyboard = help_pannel(_, True)
     if cb == "settings_back_helper":
         await CallbackQuery.edit_message_text(
