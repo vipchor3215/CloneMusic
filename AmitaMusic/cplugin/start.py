@@ -14,6 +14,7 @@ from AmitaMusic import app
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 import config
+from AmitaMusic.repo_link import REPO_LINK
 from AmitaMusic.misc import _boot_
 from AmitaMusic.plugins.sudo.sudoers import sudoers_list
 from AmitaMusic.utils.database import get_served_chats, get_served_users, get_sudoers
@@ -117,6 +118,7 @@ async def start_pm(client, message: Message, _):
         [
             InlineKeyboardButton(text=_["C_B_2"], user_id=C_BOT_OWNER_ID, style=ButtonStyle.PRIMARY),
             InlineKeyboardButton(text=_["S_B_6"], url=C_SUPPORT_CHANNEL, style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text="📦 sᴏᴜʀᴄᴇ", url=REPO_LINK, style=ButtonStyle.SUCCESS),
         ],
         [
             InlineKeyboardButton(text=_["S_B_4"], callback_data="settings_back_helper", style=ButtonStyle.PRIMARY),
@@ -177,9 +179,10 @@ async def clone_start_back_callback(client, CallbackQuery: CallbackQuery, _):
         [
             InlineKeyboardButton(text=_["C_B_2"], user_id=C_BOT_OWNER_ID, style=ButtonStyle.PRIMARY),
             InlineKeyboardButton(text=_["S_B_6"], url=C_SUPPORT_CHANNEL, style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text="💻 sᴏᴜʀᴄᴇ", url=REPO_LINK, style=ButtonStyle.SUCCESS),
         ],
         [
-            InlineKeyboardButton(text=_["S_B_4"], callback_data="settings_back_helper", style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text=_["S_B_4"], callback_data="settings_back_helper", style=ButtonStyle.DANGER),
         ],
     ]
     
