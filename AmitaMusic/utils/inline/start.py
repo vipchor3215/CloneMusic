@@ -7,6 +7,7 @@ from pyrogram.enums import ButtonStyle
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, Message
 import config
+from AmitaMusic.repo_link import REPO_LINK
 import asyncio
 from AmitaMusic import app
 
@@ -24,6 +25,7 @@ def start_panel(_):
 InlineKeyboardButton(text=_["S_B_6"], url=config.SUPPORT_CHANNEL, style=ButtonStyle.PRIMARY),
 
 InlineKeyboardButton(text=_["S_B_2"], url=config.SUPPORT_CHAT, style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text="📦 sᴏᴜʀᴄᴇ", url=REPO_LINK, style=ButtonStyle.SUCCESS),
         ],
     ]
     return buttons
@@ -41,7 +43,8 @@ def private_panel(_):
         ],
         [
             InlineKeyboardButton(text=_["S_B_6"], url=config.SUPPORT_CHANNEL, style=ButtonStyle.PRIMARY),
-            InlineKeyboardButton(text=_["S_B_2"], url=config.SUPPORT_CHAT, style=ButtonStyle.PRIMARY)
+            InlineKeyboardButton(text=_["S_B_2"], url=config.SUPPORT_CHAT, style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text="📦 sᴏᴜʀᴄᴇ", url=REPO_LINK, style=ButtonStyle.SUCCESS),
         ],
         [
             InlineKeyboardButton(text=_["S_B_5"], user_id=config.OWNER_ID, style=ButtonStyle.PRIMARY),
@@ -63,6 +66,7 @@ def private_panell(_):
         [
             InlineKeyboardButton(text=_["S_B_5"], user_id=config.OWNER_ID, style=ButtonStyle.PRIMARY),
             InlineKeyboardButton(text=_["S_B_2"], url=config.SUPPORT_CHAT, style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text="💻 sᴏᴜʀᴄᴇ", url=REPO_LINK, style=ButtonStyle.SUCCESS),
         ],
         [InlineKeyboardButton(text=_["S_B_4"], callback_data="settings_back_helper", style=ButtonStyle.PRIMARY)],
     ]
@@ -120,11 +124,3 @@ lunabots ᴀᴘɪ : ʀᴇsᴘᴏɴsɪᴠᴇ
 """
 
     await q.answer(short_txt.strip(), show_alert=True)
-
-
-
-
-
-
-
-
